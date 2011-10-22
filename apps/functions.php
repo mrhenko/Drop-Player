@@ -1,8 +1,11 @@
 <?php
+	/* Declarations */
+	define('MUSIC_URL', '/Users/hka/Dropbox/dropplayer_music');
+	
 	/* All relevant functions */
 	
 	function load_songs() {
-		$files = `ls -m ../music/`;
+		$files = shell_exec('ls -m ' . MUSIC_URL);
 		$song_list = explode(',', $files);
 		$song_list = trim_r($song_list);
 		return $song_list;
