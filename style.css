@@ -46,3 +46,28 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+body {
+	max-width: 728px;
+	padding: 0 20px;
+	position: relative;
+	margin: 0 auto;
+	
+	font-family: "Helvetica Neue", "Helvetica", sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 1.5em;
+}
+
+h1 {
+	font-size: 4em;
+}
+
+h2 {
+	font-size: 2em;
+}
+
+h1, h2, h3, h4 {
+	font-weight: 600;
+	line-height: 1.5em;
+}
