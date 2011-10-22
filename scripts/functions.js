@@ -5,6 +5,8 @@
 		var song_list;
 		var audioplayer = $('#audioplayer').get(0);
 		var currenttrack;
+		var currentposition = $('#position').get(0);
+		var totaltracks;
 		
 		
 		/* Load songs */
@@ -45,6 +47,19 @@
 			load_song(currenttrack + 1);
 		});
 		
+		/* Position update */
+		$(audioplayer).bind('timeupdate', function(){
+			var position = Math.round(audioplayer.currentTime);
+			$(currentposition).html(position);
+			
+			/* If the track ends */
+			if (position >= Math.round(audioplayer.duration)) {
+				/* Next track */
+				load_song(currenttrack + 1);
+			}
+		});
+		
+			
 		function show_song_list() {
 			$(song_list).each(function(i, val) {
 				$('#song-list').append('<li>' + val + '</li>');
@@ -52,6 +67,14 @@
 		}
 		
 		function load_song(track) {
+			if ($('#random').is(':checked')) { // Do we use random?
+				// Randomize
+				track = Math.floor(Math.random()* song_list.length);
+				while (track == currenttrack) {
+					track = Math.floor(Math.random()* song_list.length);
+				}
+			}
+			
 			audioplayer.innerHTML = '<source src=\'music/' + song_list[track] + '\' />';
 			$('#current-song').html(song_list[track]);
 			currenttrack = track;
