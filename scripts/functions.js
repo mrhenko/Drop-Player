@@ -8,10 +8,15 @@
 		var currentposition = $('#position').get(0);
 		var totaltracks;
 		
+		load_songs();
 		
 		/* Load songs */
-		$('#load-songs').click(function(e){
+		/*$('#load-songs').click(function(e){
 			e.preventDefault();
+			load_songs();
+		});*/
+		
+		function load_songs() {
 			$.ajax({
 				url: api + '?api=load_songs',
 				context: document.body,
@@ -22,7 +27,7 @@
 					load_song(0);
 				}
 			});
-		});
+		}
 		
 		/* Stop */
 		$('#stop').click(function(e) {
@@ -56,13 +61,23 @@
 			if (position >= Math.round(audioplayer.duration)) {
 				/* Next track */
 				load_song(currenttrack + 1);
+				load_songs();
 			}
+		});
+		
+		/* A song is selected in the playlist */
+		$('#playlist a').live('click', function(e){
+			e.preventDefault();
+			$('#playlist a').removeClass('selected');
+			$(this).addClass('selected');
+			play_selected_song();
 		});
 		
 			
 		function show_song_list() {
+			$('#playlist').html('');
 			$(song_list).each(function(i, val) {
-				$('#song-list').append('<li>' + val + '</li>');
+				$('#playlist').append('<li><a href="#" data-song-number="' + i + '">' + val + '</a></li>');
 			});
 		}
 		
@@ -78,6 +93,17 @@
 			audioplayer.innerHTML = '<source src=\'music/' + song_list[track] + '\' />';
 			$('#current-song').html(song_list[track]);
 			currenttrack = track;
+		}
+		
+		/* Play the selected song */
+		function play_selected_song() {
+			var t;
+			$('#playlist a').each(function() {
+				if ($(this).hasClass('selected')) {
+					t = $(this).attr('data-song-number');
+				}
+			});
+			load_song(t);
 		}
 		
 	});

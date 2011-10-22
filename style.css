@@ -73,3 +73,15 @@ h1, h2, h3, h4 {
 }
 
 h1 {line-height: 1.25em;}
+
+#playlist a {
+	display: block;
+}
+
+#playlist a:hover {
+	background: rgba(0,0,255,0.1);
+}
+
+#playlist a.selected {
+	background: rgba(0, 0, 255, 0.4);
+}
