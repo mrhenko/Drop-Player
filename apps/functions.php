@@ -1,6 +1,6 @@
 <?php
 	/* Declarations */
-	define('MUSIC_URL', '/Users/hka/Dropbox/dropplayer_music');
+	define('MUSIC_URL', '../music');
 	
 	/* All relevant functions */
 	
