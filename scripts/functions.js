@@ -40,14 +40,16 @@
 		$('#playpause').click(function(e){
 			e.preventDefault();
 			if (audioplayer.paused) {
+				$('#playpause').removeClass('play').addClass('pause');
 				audioplayer.play();
 			} else {
+				$('#playpause').removeClass('pause').addClass('play');
 				audioplayer.pause();
 			}
 		});
 		
 		/* Skip */
-		$('#skip').click(function(e){
+		$('#next').click(function(e){
 			e.preventDefault();
 			load_song(currenttrack + 1);
 		});
@@ -55,7 +57,7 @@
 		/* Position update */
 		$(audioplayer).bind('timeupdate', function(){
 			var position = Math.round(audioplayer.currentTime);
-			$(currentposition).html(position);
+			$(currentposition).html(min_sec(position));
 			
 			/* If the track ends */
 			if (position >= Math.round(audioplayer.duration)) {
@@ -91,8 +93,9 @@
 			}
 			
 			audioplayer.innerHTML = '<source src=\'music/' + song_list[track] + '\' />';
-			$('#current-song').html(song_list[track]);
+			$('#current-song span#songtitle').html(song_list[track]);
 			currenttrack = track;
+			$('#length').html(min_sec(audioplayer.duration));
 		}
 		
 		/* Play the selected song */
@@ -104,6 +107,17 @@
 				}
 			});
 			load_song(t);
+		}
+		
+		/* Convert time to min:sec */
+		function min_sec(t) {
+			var min = Math.floor(t / 60,10);
+ 			var sec = t - min * 60;
+ 			if (sec < 10) {
+ 				sec = '0' + sec;
+ 			}
+			var ms = min + ':' + sec;
+			return ms;
 		}
 		
 	});

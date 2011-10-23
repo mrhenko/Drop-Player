@@ -48,6 +48,11 @@ table {
 }
 
 body {
+	background: #c1c1c1;
+	background-image: url('pix/background.png');
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+
 	max-width: 728px;
 	padding: 0 20px;
 	position: relative;
@@ -60,8 +65,18 @@ body {
 }
 
 h1 {
-	font-size: 4em;
+	font-family: Pacifico;
+	font-size: 2.75em;
+	color: rgba(30, 124, 191, 1);
+	text-shadow: 0px 1px 0px #fff;
+	
+	display: block;
+	text-align: center;
+	
+	margin: 1em 0;
 }
+
+h1 span {color: rgba(42, 67, 118, 1);}
 
 h2 {
 	font-size: 2em;
@@ -84,4 +99,116 @@ h1 {line-height: 1.25em;}
 
 #playlist a.selected {
 	background: rgba(0, 0, 255, 0.4);
+}
+
+#player .controls {
+	position: relative;
+	display: block;
+	height: 180px;
+	width: 240px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+#player .controls li {
+	display: block;
+	width: 60px;
+	height: 60px;
+	float: left;
+	padding: 0 10px;
+}
+
+#player .controls li.random-li {
+	position: absolute;
+	bottom: 0px;
+	left: 30px;
+}
+
+#player .controls li a, #player .controls li label {
+	display: block;
+	width: 60px;
+	height: 60px;
+	
+	background-image: url('pix/sprites.png');
+	background-repeat: no-repeat;
+	
+	color: rgba(0,0,0,0);
+}
+
+
+#player .controls li a:hover {
+	background-position-y: -60px;
+}
+
+#player a#playpause, #player a#playpause.play {
+	background-position-x: -60px;
+}
+#player a#playpause.pause {
+	background-position-x: -120px;
+}
+#player a#next {
+	background-position-x: -180px;
+}
+#player .controls li input[type=checkbox] {
+	display: block;
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	opacity: 0;
+}
+#player .controls li label {
+	background-position-x: -300px;
+}
+#player .controls li input[type=checkbox]:checked + label {
+	background-position-y: -60px;
+}
+
+#player #current-song {
+	max-width: 66.5%;
+	position: relative;
+	margin: 0 auto;
+	top: -100px;
+}
+
+#player #current-song #songtitle {
+	display: block;
+	width: 79.43%;
+	
+	font-size: 0.8125em;
+	line-height: 1.846em;
+	height: 1.846em;
+	overflow: hidden;
+	
+	background: #fff;
+	border-radius: 5px;
+	
+	font-family: Trebuchet;
+	padding: 0 45px 0 5px;
+	
+	-webkit-box-shadow: 0px -1px 0px rgba(150, 150, 150, 1);
+}
+#player #current-song #length {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 30px;
+	overflow: hidden;
+	
+	color: #c1c1c1;
+}
+#player #current-song #position {
+	display: block;
+	width: 19px;
+	height: 14px;
+	overflow: hidden;
+	
+	background-image: url('pix/sprites.png');
+	background-repeat: no-repeat;
+	background-position-y: 0;
+	background-position-x: -240px;
+	
+	color: rgba(0,0,0,0);
+}
+#player #current-song #position:hover {
+	background-position-y: -60px;
 }

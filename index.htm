@@ -2,12 +2,13 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
-	<title>Web Music Player</title>
+	<title>Drop Player</title>
+	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'><!-- Header font -->
 	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 	<header>
-		<h1>Drop Player</h1>
+		<h1><span>Drop</span> Player</h1>
 	</header>
 	
 	<!--<nav>
@@ -16,19 +17,20 @@
 	</nav>-->
 	
 	<section id="player">
-		<h2>Player</h2>
 		<ul class="controls">
+			<li><a href="#" id="prev">Previous</a></li>
 			<li><a href="#" id="playpause">Play/pause</a></li>
-			<li><a href="#" id="skip">Skip</a></li>
-			<li><a href="#" id="stop">Stop</a></li>
-			<li><form>
-				<label for="random">Randomize</label>
+			<li><a href="#" id="next">Skip</a></li>
+			<li class="random-li"><form>
 				<input type="checkbox" id="random" value="1" />
+				<label for="random">Randomize</label>
 			</form></li>
 		</ul>
-		<span id="current-song">No song loaded</span>
-		<span id="length">00:00</span>
-		<span id="position">00:00</span>
+		<div id="current-song">
+			<span id="songtitle">No song loaded</span>
+			<span id="length">00:00</span>
+			<span id="position">00:00</span>
+		</div>
 		<audio id="audioplayer"></audio>
 	</section>
 	
