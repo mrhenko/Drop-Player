@@ -72,7 +72,8 @@ h1 {
 	display: block;
 	text-align: center;
 	
-	margin: 1em 0;
+	padding-top: 1em;
+	margin: 0 0 1em 0;
 }
 
 h1 span {color: rgba(42, 67, 118, 1);}
@@ -225,4 +226,16 @@ h1 {line-height: 1.25em;}
 }
 #player #current-song #position:hover {
 	background-position-y: -60px;
+}
+
+#playlist {
+	background: #c1c1c1;
+	background-image: url('pix/background.png');
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+}
+
+#playlist.animate {
+	-webkit-transform: translateZ(0);
+	-webkit-transition: top 1s ease-in-out;
 }

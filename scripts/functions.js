@@ -129,5 +129,20 @@
 			$('#position').css('margin-left', newpos + '%');
 		}
 		
+		
+		/* Some behaviour for small screens */
+		var w = $(window);
+		if ((w.width() < 480) && (w.height() < 480)) {
+			$('body').css('height', w.height()).css('overflow', 'hidden');
+			$('#playlist').css('top', w.height()).css('position', 'absolute');
+			
+			$('.show-playlist a').click(function(e){
+				e.preventDefault();
+				$('#playlist').addClass('animate');
+				$('#playlist').css('top', '0');
+				$('body').css('overflow', 'auto');
+			});
+		}
+		
 	});
 })(jQuery)
