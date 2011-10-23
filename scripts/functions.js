@@ -59,6 +59,8 @@
 			var position = Math.round(audioplayer.currentTime);
 			$(currentposition).html(min_sec(position));
 			
+			move_playhead(position);
+			
 			/* If the track ends */
 			if (position >= Math.round(audioplayer.duration)) {
 				/* Next track */
@@ -77,9 +79,9 @@
 		
 			
 		function show_song_list() {
-			$('#playlist').html('');
+			$('#playlist ul').html('');
 			$(song_list).each(function(i, val) {
-				$('#playlist').append('<li><a href="#" data-song-number="' + i + '">' + val + '</a></li>');
+				$('#playlist ul').append('<li><a href="#" data-song-number="' + i + '">' + val + '</a></li>');
 			});
 		}
 		
@@ -118,6 +120,13 @@
  			}
 			var ms = min + ':' + sec;
 			return ms;
+		}
+		
+		/* Move the playhead */
+		function move_playhead(pos) {
+			var secwidth = 100 / audioplayer.duration;
+			var newpos = secwidth * pos;
+			$('#position').css('margin-left', newpos + '%');
 		}
 		
 	});

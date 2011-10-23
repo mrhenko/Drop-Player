@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Drop Player</title>
 	<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'><!-- Header font -->
 	<link rel="stylesheet" href="style.css" />
@@ -10,11 +11,6 @@
 	<header>
 		<h1><span>Drop</span> Player</h1>
 	</header>
-	
-	<!--<nav>
-		<h2>Actions</h2>
-		<a href="#" id="load-songs">Load songs</a>
-	</nav>-->
 	
 	<section id="player">
 		<ul class="controls">
@@ -25,6 +21,7 @@
 				<input type="checkbox" id="random" value="1" />
 				<label for="random">Randomize</label>
 			</form></li>
+			<li class="show-playlist"><a href="#playlist">Playlist</a></li>
 		</ul>
 		<div id="current-song">
 			<span id="songtitle">No song loaded</span>
@@ -34,9 +31,9 @@
 		<audio id="audioplayer"></audio>
 	</section>
 	
-	<section>
+	<section  id="playlist">
 		<h2>Playlist</h2>
-		<ul id="playlist">
+		<ul>
 			
 		</ul>
 	</section>

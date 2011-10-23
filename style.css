@@ -65,7 +65,6 @@ body {
 }
 
 h1 {
-	font-family: Pacifico;
 	font-size: 2.75em;
 	color: rgba(30, 124, 191, 1);
 	text-shadow: 0px 1px 0px #fff;
@@ -83,6 +82,7 @@ h2 {
 }
 
 h1, h2, h3, h4 {
+	font-family: Pacifico;
 	font-weight: 600;
 	line-height: 1.5em;
 }
@@ -118,13 +118,18 @@ h1 {line-height: 1.25em;}
 	padding: 0 10px;
 }
 
-#player .controls li.random-li {
+#player .controls li.random-li, #player .controls li.show-playlist {
 	position: absolute;
 	bottom: 0px;
+}
+#player .controls li.random-li {
 	left: 30px;
 }
+#player .controls li.show-playlist {
+	right: 30px;
+}
 
-#player .controls li a, #player .controls li label {
+#player .controls li a, #player .controls li label, #player .show-playlist a {
 	display: block;
 	width: 60px;
 	height: 60px;
@@ -136,7 +141,7 @@ h1 {line-height: 1.25em;}
 }
 
 
-#player .controls li a:hover {
+#player .controls li a:active {
 	background-position-y: -60px;
 }
 
@@ -160,6 +165,13 @@ h1 {line-height: 1.25em;}
 	background-position-x: -300px;
 }
 #player .controls li input[type=checkbox]:checked + label {
+	background-position-y: -60px;
+}
+
+.show-playlist a {
+	background-position-x: -360px;
+}
+.show-playlist a:hover {
 	background-position-y: -60px;
 }
 
@@ -198,9 +210,11 @@ h1 {line-height: 1.25em;}
 }
 #player #current-song #position {
 	display: block;
+	position: relative;
 	width: 19px;
 	height: 14px;
 	overflow: hidden;
+	left: -9.5px;
 	
 	background-image: url('pix/sprites.png');
 	background-repeat: no-repeat;
