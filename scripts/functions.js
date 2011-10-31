@@ -2,32 +2,84 @@
 	$(document).ready(function() {
 		/* Basics */
 		var api = 'apps/api.php';
-		var song_list;
+		/*var song_list;
 		var audioplayer = $('#audioplayer').get(0);
-		var currenttrack;
+		var currenttrack;*/
 		var currentposition = $('#position').get(0);
-		var totaltracks;
+		/*var totaltracks;*/
 		
-		load_songs();
-		
-		/* Load songs */
-		/*$('#load-songs').click(function(e){
-			e.preventDefault();
-			load_songs();
-		});*/
-		
-		function load_songs() {
-			$.ajax({
-				url: api + '?api=load_songs',
-				context: document.body,
-				success: function(result) {
-					//console.log(result);
-					song_list = $.parseJSON(result);
-					show_song_list();
-					load_song(0);
+		/* An object for the player */
+		var player = {
+			/* Properties */
+			element : document.getElementById('audioplayer'),
+			playlist: {},
+			nowPlaying: 0,
+			randomize: false,
+
+			/* Methods */
+			playpause: function() {
+				if (this.element.paused) {
+					$('#playpause').removeClass('play').addClass('pause');
+					this.element.play();
+				} else {
+					$('#playpause').removeClass('pause').addClass('play');
+					this.element.pause();
 				}
-			});
+			},
+			
+			loadSongsToPlaylist: function() {
+				var temp = this;
+				$.ajax({
+					url: api + '?api=load_songs',
+					context: document.body,
+					success: function(result) {
+						temp.playlist = $.parseJSON(result);
+						temp.ui.displayPlaylist(temp.playlist);
+						temp.cueSongNumber(0);
+					}
+				});
+			},
+			
+			cueSongNumber: function(t) {
+				/* Is it set to randomize? */
+				if (this.randomize) {
+					t = Math.floor(Math.random()* this.playlist.length);
+					while (t == this.nowPlaying) {
+						track = Math.floor(Math.random()* this.playlist.length);
+					}
+				}
+				
+				this.element.innerHTML = '<source src=\'music/' + this.playlist[t] + '\' />';
+				$('#current-song span#songtitle').html(this.playlist[t]);
+				this.nowPlaying = t;
+				$('#length').html(min_sec(this.element.duration));
+			},
+			
+			nextSong: function() {
+				var new_t = this.nowPlaying + 1;
+				this.cueSongNumber(new_t);
+			},
+			
+			/* The player's UI */
+			ui: {
+				playlist: document.getElementById('list'),
+				
+				/* Methods */
+				displayPlaylist: function(list) {
+					var newhtml = '';
+					var i = 0;
+					for (var key in list) {
+						newhtml = newhtml + '<li><a href="#" data-song-number="' + i + '">' + list[key] + '</a></li>';
+						i++;
+					}
+					this.playlist.innerHTML = newhtml;
+				}
+			}
 		}
+		
+		console.log(player);
+		
+		/* Bindings */
 		
 		/* Stop */
 		$('#stop').click(function(e) {
@@ -39,20 +91,18 @@
 		/* Play/pause */
 		$('#playpause').click(function(e){
 			e.preventDefault();
-			if (audioplayer.paused) {
-				$('#playpause').removeClass('play').addClass('pause');
-				audioplayer.play();
-			} else {
-				$('#playpause').removeClass('pause').addClass('play');
-				audioplayer.pause();
-			}
+			player.playpause();
 		});
 		
 		/* Skip */
 		$('#next').click(function(e){
 			e.preventDefault();
-			load_song(currenttrack + 1);
+			player.nextSong();
 		});
+		
+		/* Toggle randomize */
+		var toggleRandom = document.getElementById('random');
+		toggleRandom.addEventListener('click', function(){player.randomize = this.checked;});
 		
 		/* Position update */
 		$(audioplayer).bind('timeupdate', function(){
@@ -64,8 +114,8 @@
 			/* If the track ends */
 			if (position >= Math.round(audioplayer.duration)) {
 				/* Next track */
-				load_song(currenttrack + 1);
-				load_songs();
+				player.nextSong();
+				player.loadSongsToPlaylist();
 			}
 		});
 		
@@ -78,28 +128,13 @@
 		});
 		
 			
-		function show_song_list() {
+		/*function show_song_list() {
 			$('#playlist ul').html('');
 			$(song_list).each(function(i, val) {
 				$('#playlist ul').append('<li><a href="#" data-song-number="' + i + '">' + val + '</a></li>');
 			});
-		}
-		
-		function load_song(track) {
-			if ($('#random').is(':checked')) { // Do we use random?
-				// Randomize
-				track = Math.floor(Math.random()* song_list.length);
-				while (track == currenttrack) {
-					track = Math.floor(Math.random()* song_list.length);
-				}
-			}
-			
-			audioplayer.innerHTML = '<source src=\'music/' + song_list[track] + '\' />';
-			$('#current-song span#songtitle').html(song_list[track]);
-			currenttrack = track;
-			$('#length').html(min_sec(audioplayer.duration));
-		}
-		
+		}*/
+				
 		/* Play the selected song */
 		function play_selected_song() {
 			var t;
@@ -143,6 +178,10 @@
 				$('body').css('overflow', 'auto');
 			});
 		}
+		
+		
+		/* Initialize */
+		player.loadSongsToPlaylist();
 		
 	});
 })(jQuery)
